@@ -32,8 +32,17 @@ return require('packer').startup(function()
             "MunifTanjim/nui.nvim",
           }
     }
-    -- tab
-    use {'akinsho/bufferline.nvim', requires = 'kyazdani42/nvim-web-devicons'}
+    -- tab,footerStatus
+    use({ "akinsho/bufferline.nvim", requires = { "kyazdani42/nvim-web-devicons", "moll/vim-bbye" }})
+    use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+    use("arkav/lualine-lsp-progress")
     -- 代码高亮
     use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+    use({
+      "iamcco/markdown-preview.nvim",
+      run = function() vim.fn["mkdp#util#install"]() end,
+    })
+    -- use({ "iamcco/markdown-preview.nvim", run = "cd app && npm install", setup = function() vim.g.mkdp_filetypes = { "markdown" } end, ft = { "markdown" }, })
+    use 'voldikss/vim-floaterm'
+    use 'hrsh7th/nvim-cmp'
 end)
