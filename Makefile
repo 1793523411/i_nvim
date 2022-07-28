@@ -1,47 +1,36 @@
-vim := $(if $(shell which nvim),nvim,$(shell which vim))
-vim_version := '${shell $(vim) --version}'
-XDG_CACHE_HOME ?= $(HOME)/.cache
+SHELL = /bin/bash
+nvim ?= nvim
+nvim_version := '${shell $(nvim) --version}'
+XDG_DATA_HOME ?= $(HOME)/.local/share
+VIM_DATA_HOME = $(XDG_DATA_HOME)/nvim
 
 default: install
 
-install:
-	@mkdir -vp "$(XDG_CACHE_HOME)/vim/"{backup,session,swap,tags,undo}; \
-	$(vim) --cmd 'set t_ti= t_te= nomore' -N -U NONE -i NONE \
-		-c "try | call dein#update() | finally | call confirm('') | qall! | endtry"
+install: create-dirs update-plugins
 
-update:
-	@git pull --ff --ff-only; \
-	$(vim) --cmd 'set t_ti= t_te= nomore' -N -U NONE -i NONE \
-		-c "try | call dein#clear_state() | call dein#update() | call dein#recache_runtimepath() | finally | call confirm('') | qall! | endtry"
+update: update-repo update-plugins
 
 upgrade: update
 
+create-dirs:
+	@mkdir -vp ./spell "$(VIM_DATA_HOME)"/{backup,sessions,swap,undo,vsnip}
+
+update-repo:
+	git pull --ff --ff-only
+
+update-plugins:
+	$(nvim) -V1 -es -i NONE -n --noplugin -u config/init.vim \
+		-c "try | call dein#clear_state() | call dein#update() | finally | messages | qall! | endtry"
+	@echo
+
 uninstall:
-	rm -rf "$(XDG_CACHE_HOME)/vim"
+	rm -rf "$(VIM_DATA_HOME)"/dein
 
 test:
-ifeq ('$(vim)','nvim')
-	$(info Testing NVIM...)
-	$(if $(findstring NVIM,$(vim_version)),\
+	$(info Testing NVIM 0.6.0+...)
+	$(if $(shell echo "$(nvim_version)" | egrep "NVIM v0\.[6-9]"),\
 		$(info OK),\
-		$(error   .. MISSING! Is Neovim available in PATH?))
-else
-	$(info Testing VIM 7.4...)
-	$(if $(findstring 7.4,$(vim_version)),\
-		$(info OK),\
-		$(error   .. MISSING! Install newer $nvim version))
-
-	$(info Testing +lua... )
-	$(if $(findstring +lua,$(vim_version)),\
-		$(info OK),\
-		$(error   .. MISSING! Install $nvim with "+lua" enabled))
-
-	$(info Testing +python... )
-	$(if $(findstring +python,$(vim_version)),\
-		$(info OK),\
-		$(error .. MISSING! Install $nvim with "+python" enabled))
-endif
+		$(error   .. You need Neovim 0.6.0 or newer))
 	@echo All tests passed, hooray!
 
-
-.PHONY: install update upgrade uninstall test
+.PHONY: install create-dirs update-repo update-plugins uninstall test
