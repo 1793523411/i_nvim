@@ -110,7 +110,9 @@ map("t", "<leader>l", [[ <C-\><C-N><C-w>l ]], opt)
 map("n", "<C-p>", ":Telescope find_files<CR>", opt)
 map("n", "<C-f>", ":Telescope live_grep<CR>", opt)
 map("n", "<C-r>", ":Telescope projects<CR>", opt)
-map("n", "<C-o>", ":Telescope oldfiles<CR>", opt)
+-- PERF : 按键与tabs切换冲突
+-- map("n", "<C-o>", ":Telescope oldfiles<CR>", opt)
+
 
 -- 插件快捷键
 local pluginKeys = {}
@@ -196,8 +198,8 @@ pluginKeys.comment = {
 
   -- 列表快捷键
 pluginKeys.nvimTreeList = { -- 打开文件或文件夹
-{ key = { "o", "<2-LeftMouse>" }, action = "system_open" },
-{ key = "<CR>", action = "edit"  },
+{ key = { "o" }, action = "system_open" },
+{ key = {"<CR>", "<2-LeftMouse>"}, action = "edit"  },
 -- v分屏打开文件
 { key = "v", action = "vsplit" },
 -- h分屏打开文件
