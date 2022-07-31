@@ -4,10 +4,10 @@ lua require('colorscheme')
 " Packer插件管理
 lua require('plugins')
 lua require('keybindings')
-lua require('plugins/lspconfig')
+" -- lua require('plugins/lspconfig')
 lua require('plugins/neo-tree') 
 lua require('plugins/treesitter') 
-lua require('plugins/cmp')
+" -- lua require('plugins/cmp')
 lua require('plugins/todo-comments')
 " lua require('plugins/lualine')
 
@@ -24,7 +24,16 @@ lua require('plugin-config/dashboard')
 lua require('plugin-config/project')
 lua require('plugin-config/indent-blankline')
 
-lua require("lsp/ui")
+" NOTE: lsp配置
+lua require("lsp.setup")
+lua require("lsp.cmp")
+lua require("lsp.ui")
+lua require("lsp.null-ls")
+" WARN:格式化 -> 非全局的格式化工作不生效
+lua require("lsp.formatter")
+
+lua require("dap.nvim-dap")
+" lua require("lsp/ui")
 
 " set background=dark
 " colorscheme zephyr
