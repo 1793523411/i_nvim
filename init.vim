@@ -23,6 +23,9 @@ lua require('plugin-config/telescope')
 lua require('plugin-config/dashboard')
 lua require('plugin-config/project')
 lua require('plugin-config/indent-blankline')
+lua require('plugin-config/mark')
+lua require('plugin-config/nvim-autopairs')
+lua require('plugin-config/nvim-colorizer')
 
 " NOTE: lsp配置
 lua require("lsp.setup")
@@ -36,7 +39,7 @@ lua require("dap.nvim-dap")
 " lua require("lsp/ui")
 
 " set background=dark
-" colorscheme zephyr
+" colorscheme zephyr 
 
 call plug#begin()
 " https://github.com/vim-airline/vim-airline

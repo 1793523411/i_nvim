@@ -3,16 +3,16 @@
 -- rafi settings
 
 -- Setup extra parsers.
-local parser_configs = require('nvim-treesitter.parsers').get_parser_configs()
+local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 
 parser_configs.http = {
 	install_info = {
-		url = 'https://github.com/NTBBloodbath/tree-sitter-http',
-		files = { 'src/parser.c' },
-		branch = 'main',
+		url = "https://github.com/NTBBloodbath/tree-sitter-http",
+		files = { "src/parser.c" },
+		branch = "main",
 	},
-	filetype = 'http',
-} 
+	filetype = "http",
+}
 
 -- 开启 Folding 模块
 vim.opt.foldmethod = "expr"
@@ -22,23 +22,86 @@ vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 vim.opt.foldlevel = 99
 
 -- Setup treesitter
-require('nvim-treesitter.configs').setup({
+require("nvim-treesitter.configs").setup({
 	-- https://github.com/nvim-treesitter/nvim-treesitter#supported-languages
 	ensure_installed = {
-		'bash', 'c', 'clojure', 'cmake', 'comment', 'commonlisp',
-		'cpp', 'css', 'dart', 'dockerfile', 'dot', 'fennel', 'fish',
-		'go', 'gomod', 'gowork', 'graphql', 'hack', 'haskell', 'hcl',
-		'help', 'html', 'http', 'java', 'javascript', 'jsdoc', 'json',
-		'json5', 'jsonc', 'julia', 'kotlin', 'latex', 'llvm', 'lua',
-		'make', 'markdown', 'ninja', 'nix', 'norg', 'perl', 'php',
-		'pug', 'python', 'query', 'r', 'regex', 'rst', 'ruby', 'rust',
-		'scala', 'scheme', 'scss', 'svelte', 'todotxt', 'toml', 'tsx',
-		'typescript', 'vala', 'vim', 'vue', 'yaml', 'zig',
+		"bash",
+		"c",
+		"clojure",
+		"cmake",
+		"comment",
+		"commonlisp",
+		"cpp",
+		"css",
+		"dart",
+		"dockerfile",
+		"dot",
+		"fennel",
+		"fish",
+		"go",
+		"gomod",
+		"gowork",
+		"graphql",
+		"hack",
+		"haskell",
+		"hcl",
+		"help",
+		"html",
+		"http",
+		"java",
+		"javascript",
+		"jsdoc",
+		"json",
+		"json5",
+		"jsonc",
+		"julia",
+		"kotlin",
+		"latex",
+		"llvm",
+		"lua",
+		"make",
+		"markdown",
+		"ninja",
+		"nix",
+		"norg",
+		"perl",
+		"php",
+		"pug",
+		"python",
+		"query",
+		"r",
+		"regex",
+		"rst",
+		"ruby",
+		"rust",
+		"scala",
+		"scheme",
+		"scss",
+		"svelte",
+		"todotxt",
+		"toml",
+		"tsx",
+		"typescript",
+		"vala",
+		"vim",
+		"vue",
+		"yaml",
+		"zig",
 	},
 
 	highlight = {
 		enable = true,
-		disable = { 'vim' },
+		disable = { "vim" },
+	},
+
+	-- https://github.com/p00f/nvim-ts-rainbow
+	rainbow = {
+		enable = true,
+		-- disable = { "jsx", "cpp" }, list of languages you want to disable the plugin for
+		extended_mode = true, -- Also highlight non-bracket delimiters like html tags, boolean or table: lang -> boolean
+		max_file_lines = nil, -- Do not enable for files with more than n lines, int
+		-- colors = {}, -- table of hex strings
+		-- termcolors = {} -- table of colour name strings
 	},
 
 	additional_vim_regex_highlighting = false,
@@ -70,10 +133,10 @@ require('nvim-treesitter.configs').setup({
 			lookahead = true,
 			keymaps = {
 				-- You can use the capture groups defined in textobjects.scm
-				['af'] = '@function.outer',
-				['if'] = '@function.inner',
-				['ac'] = '@class.outer',
-				['ic'] = '@class.inner',
+				["af"] = "@function.outer",
+				["if"] = "@function.inner",
+				["ac"] = "@class.outer",
+				["ic"] = "@class.inner",
 			},
 		},
 	},
@@ -89,13 +152,12 @@ require('nvim-treesitter.configs').setup({
 	autotag = {
 		enable = true,
 		filetypes = {
-			'html',
-			'javascript',
-			'javascriptreact',
-			'typescriptreact',
-			'svelte',
-			'vue',
-		}
-	}
-
+			"html",
+			"javascript",
+			"javascriptreact",
+			"typescriptreact",
+			"svelte",
+			"vue",
+		},
+	},
 })

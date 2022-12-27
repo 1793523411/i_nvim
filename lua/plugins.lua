@@ -161,10 +161,20 @@ return require("packer").startup({
 		use("theHamsta/nvim-dap-virtual-text")
 		use("rcarriga/nvim-dap-ui")
 		--------------------- LSP end--------------------
+		use("chentoast/marks.nvim")
+
+		--[[ 	use({ "neoclide/coc.nvim", branch = "release" }) ]]
+		use("norcalli/nvim-colorizer.lua")
+		use({
+			"windwp/nvim-autopairs",
+			config = function()
+				require("nvim-autopairs").setup({})
+			end,
+		})
 	end,
 	config = {
 		git = {
-			default_url_format = "https://hub.fastgit.xyz/%s",
+			-- default_url_format = "https://hub.fastgit.xyz/%s",
 			-- default_url_format = "https://mirror.ghproxy.com/https://github.com/%s",
 			-- default_url_format = "https://gitcode.net/mirrors/%s",
 			-- default_url_format = "https://gitclone.com/github.com/%s",
